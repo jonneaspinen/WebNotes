@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"
+	th:href="@{../css/bootstrap.min.css}" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<title>WebNotes</title>
+</head>
+<body>
+	<div class="container-md">
+		<div class="row">
+
+			<div class="col-md-4"></div>
+
+			<div class="col-md-4" align="center">
+
+				<br />
+				<h1 th:text="'My notes'"></h1>
+
+				<div th:style="'padding: 20px;'">
+					<form th:action="@{/note/save}" th:object="${note}" action="#"
+						method="post">
+
+						<div class="form-group">
+							<label for="content">Description</label> <input
+								class="form-control" type="text" id="content"
+								th:field="*{content}" />
+						</div>
+
+						<div class="form-group">
+							<label for="date">Due date</label> <input class="form-control"
+								type="date" id="date" th:field="*{date}" />
+						</div>
+
+						<label for="deplist">Urgency</label> <select id="urgencylist"
+							th:field="*{urgency}" class="form-control">
+							<option th:each="urgency: ${urgencies}"
+								th:value="${urgency.urgencyid}" th:text="${urgency.importance}"></option>
+						</select><br /> <input type="submit" class="btn btn-sm btn-primary"
+							value="Add note"></input>
+					</form>
+				</div>
+
+				<table class="table table-striped table-responsive-md" border="1">
+					<col th:style="'width: 40%'">
+					<col th:style="'width: 20%'">
+					<col th:style="'width: 20%'">
+					<col th:style="'width: 20%'">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Due date</th>
+							<th>Urgency</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="note : ${listNotes}">
+							<td th:text="${note.content}"></td>
+							<td th:text="${note.date}"></td>
+							<td th:text="${note.urgency.importance}"></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a
+								th:href="@{/editNote/{id}(id=${note.id})}"
+								class="btn btn-primary">Edit</a> &nbsp; <a
+								th:href="@{/deleteNote/{id}(id=${note.id})}"
+								class="btn btn-danger">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-4">
+				<div th:style="'margin: 5% 5% 0 0; float: right;'">
+					<h1 th:inline="text">Hello
+						[[${#httpServletRequest.remoteUser}]]!</h1>
+					<form th:action="@{/logout}" method="post"
+						th:style="'float:right;'">
+						<input type="submit" value="Sign Out"
+							class="btn btn-sm btn-danger" />
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

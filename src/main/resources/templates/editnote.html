@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"
+	th:href="@{../css/bootstrap.min.css}" />
+<title>Booklist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<div class="col-md-4" align="center" style="margin: auto;">
+		<br />
+		<h1 th:text="'Edit note'"></h1>
+
+		<div style="padding: 20px; margin: auto;">
+			<form th:action="@{/note/save}" th:object="${note}" action="#"
+				method="post">
+
+				<input type="hidden" th:field="*{id}" />
+
+				<div class="form-group">
+					<label for="content">Description</label> <input
+						class="form-control" type="text" id="content"
+						th:field="*{content}" />
+				</div>
+
+				<div class="form-group">
+					<label for="date">Due date</label> <input class="form-control"
+						type="date" id="date" th:field="*{date}" />
+				</div>
+
+				<label for="deplist">Urgency</label> <select id="urgencylist"
+					th:field="*{urgency}" class="form-control">
+					<option th:each="urgency: ${urgencies}"
+						th:value="${urgency.urgencyid}" th:text="${urgency.importance}"></option>
+				</select><br /> <input type="submit" class="btn btn-sm btn-primary"
+					value="Update"></input>
+			</form>
+		</div>
+		<a th:href="@{/}" class="btn btn-sm btn-danger">Cancel editing</a>
+	</div>
+</body>
