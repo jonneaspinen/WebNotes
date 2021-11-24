@@ -2,17 +2,8 @@ package com.project.webNotes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import com.project.webNotes.domain.Note;
-import com.project.webNotes.domain.NoteRepo;
-import com.project.webNotes.domain.Urgency;
-import com.project.webNotes.domain.UrgencyRepo;
-import com.project.webNotes.domain.User;
-import com.project.webNotes.domain.UserRepo;
 
 @SpringBootApplication
 public class WebNotesApplication {
@@ -23,10 +14,12 @@ public class WebNotesApplication {
 		SpringApplication.run(WebNotesApplication.class, args);
 	}
 
+	/*
 	@Bean
 	public CommandLineRunner insertDemoQuestions(NoteRepo noterepo, UrgencyRepo urepo, UserRepo userrepo) {
 		return (args) -> {
-
+			
+			/*
 			// CREATE TEST DATA
 			urepo.save(new Urgency("High"));
 			urepo.save(new Urgency("Medium"));
@@ -46,8 +39,10 @@ public class WebNotesApplication {
 
 			for (Note note : noterepo.findAll()) {
 				log.info(note.toString());
+			
 			}
 		};
 	}
+	*/
 
 }
